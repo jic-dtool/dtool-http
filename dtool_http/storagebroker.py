@@ -3,6 +3,7 @@ import json
 import shutil
 import requests
 
+import xml.etree.ElementTree as ET
 
 try:
     from urlparse import urlunparse
@@ -31,6 +32,8 @@ class HTTPStorageBroker(object):
         self.structure_parameters = self.get_json_encoded_structure_by_suffix(
             'structure.json'
         )
+
+        self.overlays_key_prefix = self.structure_parameters['overlays_key_prefix']
 
         self._cache_abspath = get_config_value(
             "DTOOL_HTTP_CACHE_DIRECTORY",
@@ -116,22 +119,32 @@ class HTTPStorageBroker(object):
 
         return local_item_abspath
 
+    def get_overlay(self, overlay_name):
+        """Return overlay as a dictionary.
+
+        :param overlay_name: name of the overlay
+        :returns: overlay as a dictionary
+        """
+
+        overlay_suffix = self.overlays_key_prefix + overlay_name + '.json'
+
+        return self.get_json_encoded_structure_by_suffix(overlay_suffix)
+
     def list_overlay_names(self):
         """Return list of overlay names."""
 
-        return []
+        md = {'restype': 'container', 'comp': 'list', 'prefix': 'overlays'}
+        path = self.uuid
+        url = urlunparse((self.scheme, self.netloc, path, None, None, None))
 
-def main():
+        r = requests.get(url, params=md)
 
-    uri = 'https://jicinformatics.blob.core.windows.net/04c4e3a4-f072-4fc1-881a-602d589b089a'
-    # r = requests.get('https://jicinformatics.blob.core.windows.net/04c4e3a4-f072-4fc1-881a-602d589b089a/dtool')
+        tree = ET.fromstring(r.text)
 
-    # print(json.loads(r.text))
+        overlay_names = []
+        for blob in tree[1]:
+            overlay_file = blob[0].text.rsplit('/', 1)[-1]
+            overlay_name, ext = overlay_file.split('.')
+            overlay_names.append(overlay_name)
 
-    b = HTTPStorageBroker(uri, None)
-
-    identifier = '81b19a651bc43b4a97f0daae27c5bc89b0dedb7c'
-    print b.get_item_abspath(identifier)
-
-if __name__ == '__main__':
-    main()
+        return overlay_names
