@@ -5,17 +5,14 @@ import requests
 
 import xml.etree.ElementTree as ET
 
-try:
-    from urlparse import urlunparse
-except ImportError:
-    from urllib.parse import urlunparse
-
 from dtoolcore.utils import (
     generate_identifier,
     get_config_value,
     mkdir_parents,
     generous_parse_uri,
 )
+
+HTTP_MANIFEST_KEY = 'http_manifest.json'
 
 class HTTPStorageBroker(object):
 
@@ -29,11 +26,10 @@ class HTTPStorageBroker(object):
         self.netloc = netloc
         self.uuid = path[1:]
 
-        self.structure_parameters = self.get_json_encoded_structure_by_suffix(
-            'structure.json'
+        http_manifest_url = uri + '/' + HTTP_MANIFEST_KEY
+        self.http_manifest = self.get_json_from_url(
+            http_manifest_url
         )
-
-        self.overlays_key_prefix = self.structure_parameters['overlays_key_prefix']
 
         self._cache_abspath = get_config_value(
             "DTOOL_HTTP_CACHE_DIRECTORY",
@@ -42,38 +38,34 @@ class HTTPStorageBroker(object):
         )
 
     # Helper functions
-    def get_text_by_suffix(self, suffix):
-        path = self.uuid + '/' + suffix
+    def get_text_from_url(self, url):
 
-        uri = urlunparse((self.scheme, self.netloc, path, None, None, None))
-
-        r = requests.get(uri)
+        r = requests.get(url)
 
         return r.text
 
-    def get_json_encoded_structure_by_suffix(self, suffix):
-
-        text = self.get_text_by_suffix(suffix)
+    def get_json_from_url(self, url):
+        text = self.get_text_from_url(url)
 
         return json.loads(text)
 
-    # Funtions to allow dataset retrieval
+    # Functions to allow dataset retrieval
     def get_admin_metadata(self):
-        admin_metadata_suffix = self.structure_parameters['admin_metadata_key']
-
-        return self.get_json_encoded_structure_by_suffix(admin_metadata_suffix)
+        return self.http_manifest["admin_metadata"]
 
     def get_manifest(self):
-        path = self.uuid + '/manifest.json'
-        manifest_uri = urlunparse((self.scheme, self.netloc, path, None, None, None))
+        url = self.http_manifest["manifest_url"]
 
-        r = requests.get(manifest_uri)
+        r = requests.get(url)
 
         return json.loads(r.text)
 
     def get_readme_content(self):
-        self.readme_suffix = self.structure_parameters['dataset_readme_key']
-        return self.get_text_by_suffix(self.readme_suffix)
+        url = self.http_manifest["readme_url"]
+
+        r = requests.get(url)
+
+        return r.text
 
     def has_admin_metadata(self):
         """Return True if the administrative metadata exists.
@@ -85,7 +77,7 @@ class HTTPStorageBroker(object):
             self.get_admin_metadata()
             return True
         except:
-            raise("Oops")
+            raise
 
     def get_item_abspath(self, identifier):
         """Return absolute path at which item content can be accessed.
@@ -111,8 +103,8 @@ class HTTPStorageBroker(object):
 
         if not os.path.isfile(local_item_abspath):
 
-            path = self.uuid + '/' + identifier
-            url = urlunparse((self.scheme, self.netloc, path, None, None, None))
+            url = self.http_manifest["item_urls"][identifier]
+
             r = requests.get(url, stream=True)
             with open(local_item_abspath, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
@@ -126,25 +118,13 @@ class HTTPStorageBroker(object):
         :returns: overlay as a dictionary
         """
 
-        overlay_suffix = self.overlays_key_prefix + overlay_name + '.json'
+        url = self.http_manifest["overlays"][overlay_name]
 
-        return self.get_json_encoded_structure_by_suffix(overlay_suffix)
+        r = requests.get(url)
+
+        return json.loads(r.text)
 
     def list_overlay_names(self):
         """Return list of overlay names."""
 
-        md = {'restype': 'container', 'comp': 'list', 'prefix': 'overlays'}
-        path = self.uuid
-        url = urlunparse((self.scheme, self.netloc, path, None, None, None))
-
-        r = requests.get(url, params=md)
-
-        tree = ET.fromstring(r.text)
-
-        overlay_names = []
-        for blob in tree[1]:
-            overlay_file = blob[0].text.rsplit('/', 1)[-1]
-            overlay_name, ext = overlay_file.split('.')
-            overlay_names.append(overlay_name)
-
-        return overlay_names
+        return self.http_manifest["overlays"].keys()
