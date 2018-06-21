@@ -15,12 +15,17 @@ setup(
     author_email="Matthew.Hartley@jic.ac.uk",
     url=url,
     install_requires=[
+        "click",
+        "dtool_cli>=0.6.0",
         "dtoolcore>=3.0"
     ],
     entry_points={
         "dtool.storage_brokers": [
             "HTTPStorageBroker=dtool_http.storagebroker:HTTPStorageBroker",
         ],
+        "dtool.cli": [
+            "publish=dtool_http.publish:publish",
+        ]
     },
     download_url="{}/tarball/{}".format(url, version),
     license="MIT"
