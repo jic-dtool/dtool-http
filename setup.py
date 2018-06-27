@@ -22,6 +22,7 @@ setup(
     entry_points={
         "dtool.storage_brokers": [
             "HTTPStorageBroker=dtool_http.storagebroker:HTTPStorageBroker",
+            "HTTPSStorageBroker=dtool_http.storagebroker:HTTPSStorageBroker",
         ],
         "dtool.cli": [
             "publish=dtool_http.publish:publish",

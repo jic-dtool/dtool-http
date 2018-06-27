@@ -16,7 +16,7 @@ HTTP_MANIFEST_KEY = 'http_manifest.json'
 
 class HTTPStorageBroker(object):
 
-    key = "https"
+    key = "http"
 
     def __init__(self, uri, admin_metadata, config_path=None):
 
@@ -128,3 +128,7 @@ class HTTPStorageBroker(object):
         """Return list of overlay names."""
 
         return self.http_manifest["overlays"].keys()
+
+class HTTPSStorageBroker(HTTPStorageBroker):
+
+    key = "http"
