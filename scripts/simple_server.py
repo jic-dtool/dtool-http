@@ -30,6 +30,14 @@ class DtoolHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         return item_urls
 
 
+    def generate_overlay_urls(self):
+        overlays = {}
+        for o in self.dataset.list_overlay_names():
+            url = self.generate_url(".dtool/overlays/{}.json".format(o))
+            overlays[o] = url
+        return overlays
+
+
     def generate_http_manifest(self):
         base_path = os.path.dirname(self.translate_path(self.path))
 
@@ -44,7 +52,7 @@ class DtoolHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             "admin_metadata": admin_metadata,
             "manifest_url": self.generate_url(".dtool/manifest.json"),
             "readme_url": self.generate_url("README.yml"),
-            "overlays": {},
+            "overlays": self.generate_overlay_urls(),
             "item_urls": self.generate_item_urls()
         }
         return bytes(json.dumps(http_manifest), "utf-8")
