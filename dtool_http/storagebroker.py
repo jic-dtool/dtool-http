@@ -131,4 +131,4 @@ class HTTPStorageBroker(object):
 
 class HTTPSStorageBroker(HTTPStorageBroker):
 
-    key = "http"
+    key = "https"
