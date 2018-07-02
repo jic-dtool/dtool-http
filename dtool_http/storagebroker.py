@@ -39,9 +39,12 @@ class HTTPStorageBroker(object):
         )
 
     # Helper functions
+    def get_request(self, url, stream=False):
+        return requests.get(url, stream=stream)
+
     def get_text_from_url(self, url):
 
-        r = requests.get(url)
+        r = self.get_request(url)
 
         return r.text
 
@@ -100,7 +103,7 @@ class HTTPStorageBroker(object):
 
             url = self.http_manifest["item_urls"][identifier]
 
-            r = requests.get(url, stream=True)
+            r = self.get_request(url, stream=True)
             with open(local_item_abspath, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
 
