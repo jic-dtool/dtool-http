@@ -27,6 +27,7 @@ class HTTPStorageBroker(object):
         self.uuid = path[1:]
 
         http_manifest_url = uri + '/' + HTTP_MANIFEST_KEY
+
         self.http_manifest = self.get_json_from_url(
             http_manifest_url
         )
@@ -55,17 +56,11 @@ class HTTPStorageBroker(object):
 
     def get_manifest(self):
         url = self.http_manifest["manifest_url"]
-
-        r = requests.get(url)
-
-        return json.loads(r.text)
+        return self.get_json_from_url(url)
 
     def get_readme_content(self):
         url = self.http_manifest["readme_url"]
-
-        r = requests.get(url)
-
-        return r.text
+        return self.get_text_from_url(url)
 
     def has_admin_metadata(self):
         """Return True if the administrative metadata exists.
@@ -119,10 +114,7 @@ class HTTPStorageBroker(object):
         """
 
         url = self.http_manifest["overlays"][overlay_name]
-
-        r = requests.get(url)
-
-        return json.loads(r.text)
+        return self.get_json_from_url(url)
 
     def list_overlay_names(self):
         """Return list of overlay names."""
