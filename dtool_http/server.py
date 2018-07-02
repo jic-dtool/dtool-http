@@ -1,5 +1,6 @@
 """Basic Dtool HTTP server."""
 
+import argparse
 import os
 import json
 
@@ -62,3 +63,33 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
 
 class DtoolHTTPServer(HTTPServer):
     pass
+
+
+def serve_dtool_directory(directory, port):
+
+    curdir = os.path.curdir
+
+    os.chdir(directory)
+    server_address = ("localhost", port)
+    httpd = DtoolHTTPServer(server_address, DtoolHTTPRequestHandler)
+    httpd.serve_forever()
+
+
+def cli():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "dataset_directory",
+        help="Directory with datasets to be served"
+    )
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=8081,
+        help="Port to serve datasets on (default 8081)"
+    )
+    args = parser.parse_args()
+    if not os.path.isdir(args.dataset_directory):
+        parser.error("Not a directory: {}".format(args.dataset_directory))
+
+    serve_dtool_directory(args.dataset_directory, args.port)

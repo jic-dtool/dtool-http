@@ -26,6 +26,9 @@ setup(
         ],
         "dtool.cli": [
             "publish=dtool_http.publish:publish",
+        ],
+        "console_scripts": [
+            "serve_dtool_directory=dtool_http.server:cli"
         ]
     },
     download_url="{}/tarball/{}".format(url, version),
