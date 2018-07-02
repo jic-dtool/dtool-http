@@ -23,9 +23,15 @@ def create_tmp_dataset(directory):
 
     proto_dataset.create()
 
+    proto_dataset.put_readme("---\nproject: testing dtool\n")
+
     for fn in os.listdir(_DATA):
         fpath = os.path.join(_DATA, fn)
         proto_dataset.put_item(fpath, fn)
+
+        _, ext = os.path.splitext(fn)
+        proto_dataset.add_item_metadata(fn, "mimetype", ext)
+
 
     proto_dataset.freeze()
 
