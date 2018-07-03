@@ -1,6 +1,7 @@
 """Test fixtures."""
 
 import os
+import random
 import shutil
 import tempfile
 from urllib.parse import urlunparse
@@ -58,7 +59,8 @@ def tmp_dtool_server(request):
     uri = create_tmp_dataset(d)
     dataset = dtoolcore.DataSet.from_uri(uri)
 
-    server_address = ("localhost", 8081)
+    port = random.randint(6000, 9000)
+    server_address = ("localhost", port)
 
     from dtool_http.server import DtoolHTTPServer, DtoolHTTPRequestHandler
     httpd = DtoolHTTPServer(server_address, DtoolHTTPRequestHandler)
