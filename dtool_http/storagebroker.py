@@ -27,6 +27,7 @@ class HTTPStorageBroker(object):
 
         scheme, netloc, path, _, _, _ = generous_parse_uri(uri)
 
+        self._uri = uri
         self.scheme = scheme
         self.netloc = netloc
         self.uuid = path[1:]
@@ -131,6 +132,9 @@ class HTTPStorageBroker(object):
     def list_dataset_uris(self, base_uri, CONFIG_PATH):
         """Return list of datasets in base uri."""
         return []
+
+    def http_enable(self):
+        return self._uri
 
 
 class HTTPSStorageBroker(HTTPStorageBroker):
