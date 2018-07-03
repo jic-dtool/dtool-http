@@ -15,8 +15,6 @@ setup(
     author_email="Matthew.Hartley@jic.ac.uk",
     url=url,
     install_requires=[
-        "click",
-        "dtool_cli>=0.6.0",
         "dtoolcore>=3.0",
         "requests",
     ],
@@ -25,11 +23,9 @@ setup(
             "HTTPStorageBroker=dtool_http.storagebroker:HTTPStorageBroker",
             "HTTPSStorageBroker=dtool_http.storagebroker:HTTPSStorageBroker",
         ],
-        "dtool.cli": [
-            "publish=dtool_http.publish:publish",
-        ],
         "console_scripts": [
-            "serve_dtool_directory=dtool_http.server:cli"
+            "dtool_serve_directory=dtool_http.server:cli",
+            "dtool_publish_dataset=dtool_http.publish:cli"
         ]
     },
     download_url="{}/tarball/{}".format(url, version),

@@ -1,41 +1,47 @@
-"""Command for enabling HTTP access to a dataset.
+"""Enable HTTP access to a dataset."""
 
-TODO: Move into separate package to keep client
-code separate from storage broker."""
-
+import argparse
 import sys
-
-import click
 
 import dtoolcore
 
-from dtool_cli.cli import (
-    dataset_uri_argument,
-)
 
+def publish(dataset_uri):
 
-@click.command()
-@click.option("-q", "--quiet", is_flag=True)
-@dataset_uri_argument
-def publish(quiet, dataset_uri):
-    """Enable public HTTP access to a cloud hosted dataset."""
-
-    dataset = dtoolcore.DataSet.from_uri(dataset_uri)
+    try:
+        dataset = dtoolcore.DataSet.from_uri(dataset_uri)
+    except dtoolcore.DtoolCoreTypeError:
+        print("Not a dataset: {}".format(dataset_uri))
+        sys.exit(1)
 
     try:
         access_uri = dataset._storage_broker.http_enable()
     except AttributeError:
-        click.secho(
+        print(
             "Datasets of type '{}' cannot be published using HTTP".format(
-                dataset._storage_broker.key
-            ),
-            fg="red",
-            err=True
+                dataset._storage_broker.key)
         )
-        sys.exit(401)
+        sys.exit(2)
 
-    if quiet:
-        click.secho(access_uri)
+    return access_uri
+
+
+def cli():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "dataset_uri",
+        help="Dtool dataset URI"
+    )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="Only return the http URI"
+    )
+    args = parser.parse_args()
+    access_uri = publish(args.dataset_uri)
+
+    if args.quiet:
+        print(access_uri)
     else:
-        click.secho("Dataset accessible at: ", nl=False)
-        click.secho("{}".format(access_uri), fg="green")
+        print("Dataset accessible at: {}".format(access_uri))
