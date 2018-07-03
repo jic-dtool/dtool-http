@@ -11,8 +11,10 @@ from dtoolcore.utils import urlunparse
 
 
 class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
+    """Subclass of standard library SimpleHTTPRequestHandler."""
 
     def generate_url(self, suffix):
+        """Return URL by combining server details with a path suffix."""
         url_base_path = os.path.dirname(self.path)
         netloc = "{}:{}".format(*self.server.server_address)
         return urlunparse((
@@ -22,6 +24,7 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
             "", "", ""))
 
     def generate_item_urls(self):
+        """Return dict with identifier/URL pairs for the dataset items."""
         item_urls = {}
         for i in self.dataset.identifiers:
             relpath = self.dataset.item_properties(i)["relpath"]
@@ -30,6 +33,7 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
         return item_urls
 
     def generate_overlay_urls(self):
+        """Return dict with overlay/URL pairs for the dataset overlays."""
         overlays = {}
         for o in self.dataset.list_overlay_names():
             url = self.generate_url(".dtool/overlays/{}.json".format(o))
@@ -37,6 +41,11 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
         return overlays
 
     def generate_http_manifest(self):
+        """Return http manifest.
+
+        The http manifest is the resource that defines a dataset as HTTP
+        enabled (published).
+        """
         base_path = os.path.dirname(self.translate_path(self.path))
         self.dataset = dtoolcore.DataSet.from_uri(base_path)
 
@@ -54,6 +63,11 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
         return bytes(json.dumps(http_manifest), "utf-8")
 
     def do_GET(self):
+        """Override inherited do_GET method.
+
+        Include logic for returning a http manifest when the URL ends with
+        "http_manifest.json".
+        """
         if self.path.endswith("http_manifest.json"):
             try:
                 manifest = self.generate_http_manifest()
@@ -69,10 +83,12 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
 
 
 class DtoolHTTPServer(HTTPServer):
+    """Subclass of standard library HTTPServer."""
     pass
 
 
 def serve_dtool_directory(directory, port):
+    """Serve the datasets in a directory over HTTP."""
     os.chdir(directory)
     server_address = ("localhost", port)
     httpd = DtoolHTTPServer(server_address, DtoolHTTPRequestHandler)
@@ -80,6 +96,7 @@ def serve_dtool_directory(directory, port):
 
 
 def cli():
+    """Command line utility for serving datasets in a directory over HTTP."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "dataset_directory",
