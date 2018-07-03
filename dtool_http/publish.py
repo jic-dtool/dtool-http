@@ -11,7 +11,6 @@ import dtoolcore
 
 from dtool_cli.cli import (
     dataset_uri_argument,
-    CONFIG_PATH,
 )
 
 

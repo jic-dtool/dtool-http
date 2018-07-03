@@ -73,9 +73,6 @@ class DtoolHTTPServer(HTTPServer):
 
 
 def serve_dtool_directory(directory, port):
-
-    curdir = os.path.curdir
-
     os.chdir(directory)
     server_address = ("localhost", port)
     httpd = DtoolHTTPServer(server_address, DtoolHTTPRequestHandler)

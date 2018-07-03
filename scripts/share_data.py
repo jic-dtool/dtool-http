@@ -18,6 +18,7 @@ from dtool_cli.cli import (
     CONFIG_PATH,
 )
 
+
 def _get_readme_template(fpath=None):
 
     if fpath is None:

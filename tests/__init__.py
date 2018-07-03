@@ -32,7 +32,6 @@ def create_tmp_dataset(directory):
         _, ext = os.path.splitext(fn)
         proto_dataset.add_item_metadata(fn, "mimetype", ext)
 
-
     proto_dataset.freeze()
 
     return proto_dataset.uri
@@ -59,7 +58,6 @@ def tmp_dtool_server(request):
     uri = create_tmp_dataset(d)
     dataset = dtoolcore.DataSet.from_uri(uri)
 
-
     server_address = ("localhost", 8081)
 
     from dtool_http.server import DtoolHTTPServer, DtoolHTTPRequestHandler
@@ -71,7 +69,6 @@ def tmp_dtool_server(request):
 
     t = threading.Thread(target=start_server)
     t.start()
-
 
     @request.addfinalizer
     def teardown():

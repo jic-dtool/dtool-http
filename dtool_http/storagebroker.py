@@ -4,11 +4,7 @@ import json
 import shutil
 import requests
 
-import xml.etree.ElementTree as ET
-
-import dtoolcore
 from dtoolcore.utils import (
-    generate_identifier,
     get_config_value,
     mkdir_parents,
     generous_parse_uri,
@@ -21,6 +17,7 @@ HTTP_MANIFEST_KEY = 'http_manifest.json'
 
 class HTTPError(RuntimeError):
     pass
+
 
 class HTTPStorageBroker(object):
 
@@ -131,10 +128,10 @@ class HTTPStorageBroker(object):
 
         return self.http_manifest["overlays"].keys()
 
-
     def list_dataset_uris(self, base_uri, CONFIG_PATH):
         """Return list of datasets in base uri."""
         return []
+
 
 class HTTPSStorageBroker(HTTPStorageBroker):
 

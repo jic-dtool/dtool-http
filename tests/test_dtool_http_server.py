@@ -8,13 +8,13 @@ from . import tmp_dtool_server  # NOQA
 
 
 def test_http_manifest_access(tmp_dtool_server):  # NOQA
-    dataset = DataSet.from_uri(tmp_dtool_server)
+    DataSet.from_uri(tmp_dtool_server)
 
 
 def test_http_non_dataset_uri(tmp_dtool_server):  # NOQA
     import dtool_http
     with pytest.raises(dtool_http.storagebroker.HTTPError):
-        dataset = DataSet.from_uri(tmp_dtool_server + "not-here")
+        DataSet.from_uri(tmp_dtool_server + "not-here")
 
 
 def test_workflow(tmp_dtool_server):  # NOQA
