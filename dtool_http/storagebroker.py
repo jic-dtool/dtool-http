@@ -39,7 +39,7 @@ class HTTPStorageBroker(object):
 
         http_manifest_url = uri + '/' + HTTP_MANIFEST_KEY
 
-        self.http_manifest = self.get_json_from_url(
+        self.http_manifest = self._get_json_from_url(
             http_manifest_url
         )
 
@@ -50,21 +50,21 @@ class HTTPStorageBroker(object):
         )
 
     # Helper functions
-    def get_request(self, url, stream=False):
+    def _get_request(self, url, stream=False):
         r = requests.get(url, stream=stream)
         logger.info("Response status code: {}".format(r.status_code))
         if r.status_code != 200:
             raise(HTTPError(r.status_code))
         return r
 
-    def get_text_from_url(self, url):
+    def _get_text_from_url(self, url):
 
-        r = self.get_request(url)
+        r = self._get_request(url)
 
         return r.text
 
-    def get_json_from_url(self, url):
-        text = self.get_text_from_url(url)
+    def _get_json_from_url(self, url):
+        text = self._get_text_from_url(url)
 
         return json.loads(text)
 
@@ -76,12 +76,12 @@ class HTTPStorageBroker(object):
     def get_manifest(self):
         """Return the manifest as a dictionary."""
         url = self.http_manifest["manifest_url"]
-        return self.get_json_from_url(url)
+        return self._get_json_from_url(url)
 
     def get_readme_content(self):
         """Return content of the README file as a string."""
         url = self.http_manifest["readme_url"]
-        return self.get_text_from_url(url)
+        return self._get_text_from_url(url)
 
     def has_admin_metadata(self):
         """Return True if the administrative metadata exists.
@@ -116,7 +116,7 @@ class HTTPStorageBroker(object):
 
             url = self.http_manifest["item_urls"][identifier]
 
-            r = self.get_request(url, stream=True)
+            r = self._get_request(url, stream=True)
             with open(local_item_abspath, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
 
@@ -129,7 +129,7 @@ class HTTPStorageBroker(object):
         :returns: overlay as a dictionary
         """
         url = self.http_manifest["overlays"][overlay_name]
-        return self.get_json_from_url(url)
+        return self._get_json_from_url(url)
 
     def list_overlay_names(self):
         """Return list of overlay names."""
