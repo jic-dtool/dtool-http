@@ -1,3 +1,5 @@
+"""HTTP(S) storage broker."""
+
 import logging
 import os
 import json
@@ -20,6 +22,9 @@ class HTTPError(RuntimeError):
 
 
 class HTTPStorageBroker(object):
+    """
+    Storage broker to interact with datasets over HTTP in a read only fashion.
+    """
 
     key = "http"
 
@@ -65,13 +70,16 @@ class HTTPStorageBroker(object):
 
     # Functions to allow dataset retrieval
     def get_admin_metadata(self):
+        """Return administrative metadata as a dictionary."""
         return self.http_manifest["admin_metadata"]
 
     def get_manifest(self):
+        """Return the manifest as a dictionary."""
         url = self.http_manifest["manifest_url"]
         return self.get_json_from_url(url)
 
     def get_readme_content(self):
+        """Return content of the README file as a string."""
         url = self.http_manifest["readme_url"]
         return self.get_text_from_url(url)
 
@@ -120,13 +128,11 @@ class HTTPStorageBroker(object):
         :param overlay_name: name of the overlay
         :returns: overlay as a dictionary
         """
-
         url = self.http_manifest["overlays"][overlay_name]
         return self.get_json_from_url(url)
 
     def list_overlay_names(self):
         """Return list of overlay names."""
-
         return self.http_manifest["overlays"].keys()
 
     def list_dataset_uris(self, base_uri, CONFIG_PATH):
@@ -134,9 +140,13 @@ class HTTPStorageBroker(object):
         return []
 
     def http_enable(self):
+        """Return the URI from which the dataset can be accessed via HTTP."""
         return self._uri
 
 
 class HTTPSStorageBroker(HTTPStorageBroker):
+    """
+    Storage broker to interact with datasets over HTTPS in a read only fashion.
+    """
 
     key = "https"
