@@ -7,6 +7,11 @@ import dtoolcore
 
 
 def publish(dataset_uri):
+    """Return access URL to HTTP enabled (published) dataset.
+
+    Exits with error code 1 if the dataset_uri is not a dataset.
+    Exits with error code 2 if the dataset cannot be HTTP enabled.
+    """
 
     try:
         dataset = dtoolcore.DataSet.from_uri(dataset_uri)
@@ -27,6 +32,7 @@ def publish(dataset_uri):
 
 
 def cli():
+    """Command line utility to HTTP enable (publish) a dataset."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "dataset_uri",
