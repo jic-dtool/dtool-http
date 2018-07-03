@@ -82,8 +82,6 @@ def create_and_share(path):
     base_uri = "azure://jicinformatics"
 
     admin_metadata = dtoolcore.generate_admin_metadata(name)
-    parsed_base_uri = dtoolcore.utils.generous_parse_uri(base_uri)
-    storage = parsed_base_uri.scheme
 
     # Create the dataset.
     proto_dataset = dtoolcore.generate_proto_dataset(
