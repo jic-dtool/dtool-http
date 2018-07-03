@@ -17,7 +17,8 @@ setup(
     install_requires=[
         "click",
         "dtool_cli>=0.6.0",
-        "dtoolcore>=3.0"
+        "dtoolcore>=3.0",
+        "requests",
     ],
     entry_points={
         "dtool.storage_brokers": [
