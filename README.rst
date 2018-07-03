@@ -103,6 +103,6 @@ Related packages
 
 - `dtoolcore <https://github.com/jic-dtool/dtoolcore>`_
 - `dtool-cli <https://github.com/jic-dtool/dtool-cli>`_
-- `dtool-cli <https://github.com/jic-dtool/dtool-info>`_
-- `dtoolcore <https://github.com/jic-dtool/dtool-s3>`_
-- `dtoolcore <https://github.com/jic-dtool/dtool-azure>`_
+- `dtool-info <https://github.com/jic-dtool/dtool-info>`_
+- `dtool-s3 <https://github.com/jic-dtool/dtool-s3>`_
+- `dtool-azure <https://github.com/jic-dtool/dtool-azure>`_
