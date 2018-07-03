@@ -1,3 +1,4 @@
+import logging
 import os
 import json
 import shutil
@@ -5,6 +6,7 @@ import requests
 
 import xml.etree.ElementTree as ET
 
+import dtoolcore
 from dtoolcore.utils import (
     generate_identifier,
     get_config_value,
@@ -12,7 +14,13 @@ from dtoolcore.utils import (
     generous_parse_uri,
 )
 
+logger = logging.getLogger(__name__)
+
 HTTP_MANIFEST_KEY = 'http_manifest.json'
+
+
+class HTTPError(RuntimeError):
+    pass
 
 class HTTPStorageBroker(object):
 
@@ -40,7 +48,11 @@ class HTTPStorageBroker(object):
 
     # Helper functions
     def get_request(self, url, stream=False):
-        return requests.get(url, stream=stream)
+        r = requests.get(url, stream=stream)
+        logger.info("Response status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            raise(HTTPError(r.status_code))
+        return r
 
     def get_text_from_url(self, url):
 
@@ -70,12 +82,7 @@ class HTTPStorageBroker(object):
 
         This is the definition of being a "dataset".
         """
-
-        try:
-            self.get_admin_metadata()
-            return True
-        except:
-            raise
+        return "admin_metadata" in self.http_manifest
 
     def get_item_abspath(self, identifier):
         """Return absolute path at which item content can be accessed.
@@ -123,6 +130,11 @@ class HTTPStorageBroker(object):
         """Return list of overlay names."""
 
         return self.http_manifest["overlays"].keys()
+
+
+    def list_dataset_uris(self, base_uri, CONFIG_PATH):
+        """Return list of datasets in base uri."""
+        return []
 
 class HTTPSStorageBroker(HTTPStorageBroker):
 
