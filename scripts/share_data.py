@@ -2,6 +2,8 @@ import os
 import getpass
 import datetime
 
+import pkg_resources
+
 import click
 
 try:
@@ -16,6 +18,12 @@ import dtoolcore
 
 from dtool_cli.cli import (
     CONFIG_PATH,
+)
+
+
+README_TEMPLATE_FPATH = pkg_resources.resource_filename(
+    "dtool_create",
+    os.path.join("templates", "README.yml")
 )
 
 
@@ -87,9 +95,7 @@ def create_and_share(path):
     except dtoolcore.storagebroker.StorageBrokerOSError as err:
         raise click.UsageError(str(err))
 
-    readme_template = _get_readme_template(
-        fpath="/Users/hartleym/projects/data_management/dtool-create/dtool_create/templates/README.yml"
-    )
+    readme_template = _get_readme_template()
 
     # Create an CommentedMap representation of the yaml readme template.
     yaml = YAML()
