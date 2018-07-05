@@ -11,8 +11,11 @@ setup(
     description="Add HTTP read only dataset support to dtool",
     long_description=readme,
     include_package_data=True,
-    author="Matthew Hartley",
-    author_email="Matthew.Hartley@jic.ac.uk",
+    # Package will be released using Tjelvar's PyPi credentials.
+    author="Tjelvar Olsson",
+    author_email="tjelvar.olsson@jic.ac.uk",
+#   author="Matthew Hartley",
+#   author_email="Matthew.Hartley@jic.ac.uk",
     url=url,
     install_requires=[
         "dtoolcore>=3.0",
