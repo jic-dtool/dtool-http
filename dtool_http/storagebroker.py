@@ -117,8 +117,10 @@ class HTTPStorageBroker(object):
             url = self.http_manifest["item_urls"][identifier]
 
             r = self._get_request(url, stream=True)
-            with open(local_item_abspath, 'wb') as f:
+            tmp_local_item_abspath = local_item_abspath + ".tmp"
+            with open(tmp_local_item_abspath, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
+            os.rename(tmp_local_item_abspath, local_item_abspath)
 
         return local_item_abspath
 
