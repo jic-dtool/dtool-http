@@ -59,7 +59,6 @@ class HTTPStorageBroker(object):
                 r.url))
         return r.url
 
-
     def _get_request(self, url, stream=False):
         r = requests.get(url, stream=stream)
         logger.info("Response status code: {}".format(r.status_code))
