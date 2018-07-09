@@ -15,4 +15,4 @@ def test_publish_command_functional(tmp_dtool_server):  # NOQA
 
     from dtool_http.publish import publish
 
-    assert tmp_dtool_server == publish(tmp_dtool_server)
+    assert tmp_dtool_server + "/" == publish(tmp_dtool_server)
