@@ -10,6 +10,8 @@ This change log uses principles from `keep a changelog <http://keepachangelog.co
 Added
 ^^^^^
 
+- Added ability to deal with redirects to enable working with shortened URLs
+
 
 Changed
 ^^^^^^^

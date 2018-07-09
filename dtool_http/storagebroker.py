@@ -32,12 +32,13 @@ class HTTPStorageBroker(object):
 
         scheme, netloc, path, _, _, _ = generous_parse_uri(uri)
 
-        self._uri = uri
+        self._uri = self._get_base_uri(uri)
+
         self.scheme = scheme
         self.netloc = netloc
         self.uuid = path[1:]
 
-        http_manifest_url = uri + '/' + HTTP_MANIFEST_KEY
+        http_manifest_url = self._uri + '/' + HTTP_MANIFEST_KEY
 
         self.http_manifest = self._get_json_from_url(
             http_manifest_url
@@ -50,11 +51,22 @@ class HTTPStorageBroker(object):
         )
 
     # Helper functions
+
+    def _get_base_uri(self, url):
+        r = requests.get(url)
+        if r.status_code != 301:
+            logger.info("Dataset moved, redirecting to: {}".format(
+                r.url))
+        return r.url
+
+
     def _get_request(self, url, stream=False):
         r = requests.get(url, stream=stream)
         logger.info("Response status code: {}".format(r.status_code))
+
         if r.status_code != 200:
             raise(HTTPError(r.status_code))
+
         return r
 
     def _get_text_from_url(self, url):
