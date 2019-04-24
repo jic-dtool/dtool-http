@@ -14,6 +14,9 @@ Added
 Changed
 ^^^^^^^
 
+- Cache environment variable changed from DTOOL_HTTP_CACHE_DIRECTORY to DTOOL_CACHE_DIRECTORY
+- Default cache directory changed from ``~/.cache/dtool/http`` to ``~/.cache/dtool``
+
 
 Deprecated
 ^^^^^^^^^^

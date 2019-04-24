@@ -10,6 +10,7 @@ from dtoolcore.utils import (
     get_config_value,
     mkdir_parents,
     generous_parse_uri,
+    DEFAULT_CACHE_PATH,
 )
 
 logger = logging.getLogger(__name__)
@@ -45,9 +46,9 @@ class HTTPStorageBroker(object):
         )
 
         self._cache_abspath = get_config_value(
-            "DTOOL_HTTP_CACHE_DIRECTORY",
+            "DTOOL_CACHE_DIRECTORY",
             config_path=config_path,
-            default=os.path.expanduser("~/.cache/dtool/http")
+            default=DEFAULT_CACHE_PATH
         )
 
     # Helper functions

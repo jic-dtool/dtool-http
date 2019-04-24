@@ -6,10 +6,12 @@ import shutil
 import tempfile
 import threading
 from contextlib import contextmanager
-from urllib.parse import urlunparse
 
 import dtoolcore
+from dtoolcore.utils import urlunparse
+
 import pytest
+
 
 _HERE = os.path.dirname(__file__)
 _DATA = os.path.join(_HERE, "data")
