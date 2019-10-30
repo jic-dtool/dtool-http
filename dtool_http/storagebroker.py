@@ -156,10 +156,14 @@ class HTTPStorageBroker(object):
 
     def list_overlay_names(self):
         """Return list of overlay names."""
+        if "overlays" not in self.http_manifest:
+            return []
         return self.http_manifest["overlays"].keys()
 
     def list_annotation_names(self):
         """Return list of annotation names."""
+        if "annotations" not in self.http_manifest:
+            return []
         return self.http_manifest["annotations"].keys()
 
     def list_dataset_uris(self, base_uri, CONFIG_PATH):
