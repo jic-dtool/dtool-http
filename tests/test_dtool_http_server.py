@@ -25,7 +25,7 @@ def test_workflow(tmp_dtool_server):  # NOQA
     example_identifier = "1c10766c4a29536bc648260f456202091e2f57b4"
 
     with tmp_directory() as cache_dir:
-        with tmp_env_var("DTOOL_HTTP_CACHE_DIRECTORY", cache_dir):
+        with tmp_env_var("DTOOL_CACHE_DIRECTORY", cache_dir):
             dataset = DataSet.from_uri(tmp_dtool_server)
 
             assert len(dataset.identifiers) != 0
@@ -33,8 +33,10 @@ def test_workflow(tmp_dtool_server):  # NOQA
 
             expected_overlay_names = set(["mimetype"])
             assert set(dataset.list_overlay_names()) == expected_overlay_names
-
             assert example_identifier in dataset.get_overlay("mimetype")
+
+            assert dataset.list_annotation_names() == ["project"]
+            assert dataset.get_annotation("project") == "dtool-testing"
 
             fpath = dataset.item_content_abspath(example_identifier)
             assert os.path.isfile(fpath)

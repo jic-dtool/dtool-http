@@ -40,6 +40,14 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
             overlays[o] = url
         return overlays
 
+    def generate_annotation_urls(self):
+        """Return dict with annotation/URL pairs for the annotations."""
+        annotations = {}
+        for a in self.dataset.list_annotation_names():
+            url = self.generate_url(".dtool/annotations/{}.json".format(a))
+            annotations[a] = url
+        return annotations
+
     def generate_http_manifest(self):
         """Return http manifest.
 
@@ -58,6 +66,7 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
             "manifest_url": self.generate_url(".dtool/manifest.json"),
             "readme_url": self.generate_url("README.yml"),
             "overlays": self.generate_overlay_urls(),
+            "annotations": self.generate_annotation_urls(),
             "item_urls": self.generate_item_urls()
         }
         return bytes(json.dumps(http_manifest), "utf-8")

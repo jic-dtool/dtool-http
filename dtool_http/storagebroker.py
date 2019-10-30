@@ -145,9 +145,22 @@ class HTTPStorageBroker(object):
         url = self.http_manifest["overlays"][overlay_name]
         return self._get_json_from_url(url)
 
+    def get_annotation(self, annotation_name):
+        """Return annotation.
+
+        :param overlay_name: name of the annotation
+        :returns: annotation
+        """
+        url = self.http_manifest["annotations"][annotation_name]
+        return self._get_json_from_url(url)
+
     def list_overlay_names(self):
         """Return list of overlay names."""
         return self.http_manifest["overlays"].keys()
+
+    def list_annotation_names(self):
+        """Return list of annotation names."""
+        return self.http_manifest["annotations"].keys()
 
     def list_dataset_uris(self, base_uri, CONFIG_PATH):
         """Return list of datasets in base uri."""
