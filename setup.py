@@ -1,7 +1,7 @@
 from setuptools import setup
 
 url = "https://github.com/jic-dtool/dtool-http"
-version = "0.3.0"
+version = "0.4.0"
 readme = open('README.rst').read()
 
 setup(
@@ -18,7 +18,7 @@ setup(
 #   author_email="Matthew.Hartley@jic.ac.uk",  # NOQA
     url=url,
     install_requires=[
-        "dtoolcore>=3.10",
+        "dtoolcore>=3.13",
         "requests",
     ],
     entry_points={
