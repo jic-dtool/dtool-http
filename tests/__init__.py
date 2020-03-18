@@ -51,6 +51,8 @@ def create_tmp_dataset(directory):
         proto_dataset.add_item_metadata(fn, "mimetype", ext)
 
     proto_dataset.put_annotation("project", "dtool-testing")
+    proto_dataset.put_tag("amazing")
+    proto_dataset.put_tag("stuff")
     proto_dataset.freeze()
 
     return proto_dataset.uri

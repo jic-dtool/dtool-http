@@ -35,6 +35,8 @@ def test_workflow(tmp_dtool_server):  # NOQA
             assert set(dataset.list_overlay_names()) == expected_overlay_names
             assert example_identifier in dataset.get_overlay("mimetype")
 
+            assert dataset.list_tags() == ["amazing", "stuff"]
+
             assert dataset.list_annotation_names() == ["project"]
             assert dataset.get_annotation("project") == "dtool-testing"
 

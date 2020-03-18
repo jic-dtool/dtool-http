@@ -67,6 +67,7 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
             "readme_url": self.generate_url("README.yml"),
             "overlays": self.generate_overlay_urls(),
             "annotations": self.generate_annotation_urls(),
+            "tags": self.dataset.list_tags(),
             "item_urls": self.generate_item_urls()
         }
         return bytes(json.dumps(http_manifest), "utf-8")
