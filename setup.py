@@ -18,7 +18,7 @@ setup(
 #   author_email="Matthew.Hartley@jic.ac.uk",  # NOQA
     url=url,
     install_requires=[
-        "dtoolcore>=3.13",
+        "dtoolcore>=3.17",
         "requests",
     ],
     entry_points={
