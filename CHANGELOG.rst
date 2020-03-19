@@ -10,8 +10,6 @@ This change log uses principles from `keep a changelog <http://keepachangelog.co
 Added
 ^^^^^
 
-- Added support for dataset tags
-
 
 Changed
 ^^^^^^^
@@ -31,6 +29,15 @@ Fixed
 
 Security
 ^^^^^^^^
+
+
+[0.5.0] - 2020-03-19
+--------------------
+
+Added
+^^^^^
+
+- Added support for dataset tags
 
 
 [0.4.0] - 2019-10-31
