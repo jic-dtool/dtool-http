@@ -1,7 +1,7 @@
 from setuptools import setup
 
 url = "https://github.com/jic-dtool/dtool-http"
-version = "0.4.0"
+version = "0.5.0"
 readme = open('README.rst').read()
 
 setup(
@@ -13,7 +13,7 @@ setup(
     include_package_data=True,
     # Package will be released using Tjelvar's PyPi credentials.
     author="Tjelvar Olsson",
-    author_email="tjelvar.olsson@jic.ac.uk",
+    author_email="tjelvar.olsson@gmail.com",
 #   author="Matthew Hartley",  # NOQA
 #   author_email="Matthew.Hartley@jic.ac.uk",  # NOQA
     url=url,
