@@ -31,8 +31,10 @@ Security
 ^^^^^^^^
 
 
-[0.5.0] - 2021-06-20
+[0.5.0] - 2020-03-19
 --------------------
+
+This code was lost in a local branch, but was reimplemented and added to GitHub on 2021-06-21.
 
 Added
 ^^^^^
