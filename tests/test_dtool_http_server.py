@@ -37,6 +37,7 @@ def test_workflow(tmp_dtool_server):  # NOQA
 
             assert dataset.list_annotation_names() == ["project"]
             assert dataset.get_annotation("project") == "dtool-testing"
+            assert dataset.list_tags() == ["amazing"]
 
             fpath = dataset.item_content_abspath(example_identifier)
             assert os.path.isfile(fpath)

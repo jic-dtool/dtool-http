@@ -166,6 +166,12 @@ class HTTPStorageBroker(object):
             return []
         return self.http_manifest["annotations"].keys()
 
+    def list_tags(self):
+        """Return list of annotation names."""
+        if "tags" not in self.http_manifest:
+            return []
+        return self.http_manifest["tags"]
+
     def list_dataset_uris(self, base_uri, CONFIG_PATH):
         """Return list of datasets in base uri."""
         return []

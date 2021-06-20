@@ -48,6 +48,10 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
             annotations[a] = url
         return annotations
 
+    def generate_tags_list(self):
+        """Return list with dataset tags."""
+        return self.dataset.list_tags()
+
     def generate_http_manifest(self):
         """Return http manifest.
 
@@ -67,6 +71,7 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
             "readme_url": self.generate_url("README.yml"),
             "overlays": self.generate_overlay_urls(),
             "annotations": self.generate_annotation_urls(),
+            "tags": self.generate_tags_list(),
             "item_urls": self.generate_item_urls()
         }
         return bytes(json.dumps(http_manifest), "utf-8")
