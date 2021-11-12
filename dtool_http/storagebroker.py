@@ -31,15 +31,25 @@ class HTTPStorageBroker(object):
 
     def __init__(self, uri, admin_metadata, config_path=None):
 
-        scheme, netloc, path, _, _, _ = generous_parse_uri(uri)
+        scheme, netloc, path, _, query, _ = generous_parse_uri(uri)
 
+        if query != "":
+            # We are dealing with something like an AWS S3 presinged URL.
+            # Strip the query from the URI.
+            uri, _ = uri.split("?")
         self._uri = self._get_base_uri(uri)
 
         self.scheme = scheme
         self.netloc = netloc
         self.uuid = path[1:]
 
+
         http_manifest_url = self._uri + '/' + HTTP_MANIFEST_KEY
+
+        if query != "":
+            # We are dealing with something like an AWS S3 presinged URL.
+            # Add the query to the HTTP manifest URL.
+            http_manifest_url = http_manifest_url + "?" + query
 
         self.http_manifest = self._get_json_from_url(
             http_manifest_url
