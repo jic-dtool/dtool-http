@@ -30,6 +30,14 @@ Fixed
 Security
 ^^^^^^^^
 
+[0.5.2] - 2025-03-28
+--------------------
+
+Fixed
+^^^^^
+
+- Generation of HTTP manifest URLs for base uris with signatures
+
 
 [0.5.1] - 2021-06-23
 --------------------
