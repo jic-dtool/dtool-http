@@ -33,15 +33,20 @@ class HTTPStorageBroker(object):
 
         parse_result = generous_parse_uri(uri)
 
+        # Get potential query signature for Azure/S3
+        self._signature = parse_result.query
+
+        # Base URI may be redirected to a different location
         self._uri = self._get_base_uri(parse_result)
-        self._signature = parse_result.query  # Contains signature for Azure/S3
+        parse_result = generous_parse_uri(self._uri)
 
         self.scheme = parse_result.scheme
         self.netloc = parse_result.netloc
         self.uuid = parse_result.path[1:]
 
         http_manifest_url = parse_result._replace(
-            path=parse_result.path + '/' + HTTP_MANIFEST_KEY).geturl()
+            path=parse_result.path + '/' + HTTP_MANIFEST_KEY,
+            query=self._signature).geturl()
 
         self.http_manifest = self._get_json_from_url(
             http_manifest_url
@@ -58,8 +63,7 @@ class HTTPStorageBroker(object):
     def _get_base_uri(self, parse_result):
         r = requests.get(parse_result._replace(query="").geturl())
         if r.status_code != 301:
-            logger.info("Dataset moved, redirecting to: {}".format(
-                r.url))
+            logger.info("Dataset moved, redirecting to: {}".format(r.url))
         return r.url
 
     def _get_request(self, url, stream=False):
