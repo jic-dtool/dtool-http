@@ -8,7 +8,7 @@ Add HTTP support to dtool for read only access to datasets
     :target: https://pypi.org/project/dtool-http/
 .. |tag| image:: https://img.shields.io/github/v/tag/jic-dtool/dtool-http
     :target: https://github.com/jic-dtool/dtool-http/tags
-.. |test| image:: https://img.shields.io/github/actions/workflow/status/dtool-http/test.yml?branch=master
+.. |test| image:: https://img.shields.io/github/actions/workflow/status/jic-dtool/dtool-http/test.yml?branch=master&label=tests
     :target: https://github.com/jic-dtool/dtool-http/actions/workflows/test.yml
 
 |dtool| |pypi| |tag| |test|
