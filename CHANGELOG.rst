@@ -30,8 +30,19 @@ Fixed
 Security
 ^^^^^^^^
 
-[0.5.2] - 2025-03-28
+[0.5.2] - 2025-03-31
 --------------------
+
+Added
+^^^^^
+
+- GitHub CI test and publication workflows
+- Dynamic versioning
+
+Changed
+^^^^^^^
+
+- Transitoned from ``setup.py`` to ``pyporject.toml``
 
 Fixed
 ^^^^^
