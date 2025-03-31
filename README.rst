@@ -1,14 +1,14 @@
 Add HTTP support to dtool for read only access to datasets
 ==========================================================
 
-.. |dtool| image:: https://github.com/jic-dtool/dtool-http/blob/main/icons/22x22/dtool_logo.png?raw=True
+.. |dtool| image:: https://github.com/jic-dtool/dtool-http/blob/master/icons/22x22/dtool_logo.png?raw=True
     :height: 20px
     :target: https://github.com/jic-dtool/dtool-http
 .. |pypi| image:: https://img.shields.io/pypi/v/dtool-http
     :target: https://pypi.org/project/dtool-http/
 .. |tag| image:: https://img.shields.io/github/v/tag/jic-dtool/dtool-http
     :target: https://github.com/jic-dtool/dtool-http/tags
-.. |test| image:: https://img.shields.io/github/actions/workflow/status/dtool-http/dtool-http/test.yml?branch=master
+.. |test| image:: https://img.shields.io/github/actions/workflow/status/dtool-http/test.yml?branch=master
     :target: https://github.com/jic-dtool/dtool-http/actions/workflows/test.yml
 
 |dtool| |pypi| |tag| |test|

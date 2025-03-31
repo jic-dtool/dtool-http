@@ -25,7 +25,7 @@ test = [
 
 [project.urls]
 Documentation = "https://github.com/jic-dtool/dtool-http/blob/master/README.rst"
-Repository = "hhttps://github.com/jic-dtool/dtool-http"
+Repository = "https://github.com/jic-dtool/dtool-http"
 Changelog = "https://github.com/jic-dtool/dtool-http/blob/master/CHANGELOG.rst"
 
 [tool.setuptools_scm]
