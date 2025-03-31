@@ -11,7 +11,7 @@ Add HTTP support to dtool for read only access to datasets
 .. |test| image:: https://img.shields.io/github/actions/workflow/status/dtool-http/dtool-http/test.yml?branch=master
     :target: https://github.com/jic-dtool/dtool-http/actions/workflows/test.yml
 
-|dtool| |pypi| |tag| |test| |zenodo|
+|dtool| |pypi| |tag| |test|
 
 - GitHub: https://github.com/jic-dtool/dtool-http
 - Free software: MIT License
