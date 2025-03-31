@@ -10,8 +10,10 @@ Add HTTP support to dtool for read only access to datasets
     :target: https://github.com/jic-dtool/dtool-http/tags
 .. |test| image:: https://img.shields.io/github/actions/workflow/status/jic-dtool/dtool-http/test.yml?branch=master&label=tests
     :target: https://github.com/jic-dtool/dtool-http/actions/workflows/test.yml
+.. |coverage|  image:: https://codecov.io/github/jic-dtool/dtool-http/coverage.svg?branch=master
+    :target: https://codecov.io/github/jic-dtool/dtool-http?branch=master
 
-|dtool| |pypi| |tag| |test|
+|dtool| |pypi| |tag| |test| |coverage|
 
 - GitHub: https://github.com/jic-dtool/dtool-http
 - Free software: MIT License
