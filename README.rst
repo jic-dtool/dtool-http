@@ -1,17 +1,17 @@
 Add HTTP support to dtool for read only access to datasets
 ==========================================================
 
-.. image:: https://badge.fury.io/py/dtool-http.svg
-   :target: http://badge.fury.io/py/dtool-http
-   :alt: PyPi package
+.. |dtool| image:: https://github.com/jic-dtool/dtool-http/blob/main/icons/22x22/dtool_logo.png?raw=True
+    :height: 20px
+    :target: https://github.com/jic-dtool/dtool-http
+.. |pypi| image:: https://img.shields.io/pypi/v/dtool-http
+    :target: https://pypi.org/project/dtool-http/
+.. |tag| image:: https://img.shields.io/github/v/tag/jic-dtool/dtool-http
+    :target: https://github.com/jic-dtool/dtool-http/tags
+.. |test| image:: https://img.shields.io/github/actions/workflow/status/dtool-http/dtool-http/test.yml?branch=master
+    :target: https://github.com/jic-dtool/dtool-http/actions/workflows/test.yml
 
-.. image:: https://travis-ci.org/jic-dtool/dtool-http.svg?branch=master
-   :target: https://travis-ci.org/jic-dtool/dtool-http
-   :alt: Travis CI build status (Linux)
-
-.. image:: https://codecov.io/github/jic-dtool/dtool-http/coverage.svg?branch=master
-   :target: https://codecov.io/github/jic-dtool/dtool-http?branch=master
-   :alt: Code Coverage
+|dtool| |pypi| |tag| |test| |zenodo|
 
 - GitHub: https://github.com/jic-dtool/dtool-http
 - Free software: MIT License

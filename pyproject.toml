@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=42", "setuptools_scm[toml]>=6.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dtool-http"
+description = "Add HTTP read only dataset support to dtool"
+readme = "README.rst"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Tjelvar Olsson", email = "tjelvar.olsson@gmail.com"}
+]
+dynamic = ["version"]
+dependencies = [
+    "dtoolcore>=3.13",
+    "requests",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytz"
+]
+
+[project.urls]
+Documentation = "https://github.com/jic-dtool/dtool-http/blob/master/README.rst"
+Repository = "hhttps://github.com/jic-dtool/dtool-http"
+Changelog = "https://github.com/jic-dtool/dtool-http/blob/master/CHANGELOG.rst"
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
+write_to = "dtool_http/version.py"
+
+[tool.setuptools]
+packages = ["dtool_http"]
+
+[project.entry-points."dtool.storage_brokers"]
+"HTTPStorageBroker" = "dtool_http.storagebroker:HTTPStorageBroker"
+"HTTPSStorageBroker" = "dtool_http.storagebroker:HTTPSStorageBroker"
+
+[project.entry-points."dtool.cli"]
+"dtool_serve_directory" = "dtool_http.server:cli"
+"dtool_publish_dataset" = "dtool_http.publish:cli"
