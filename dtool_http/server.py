@@ -93,7 +93,7 @@ class DtoolHTTPRequestHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
 
         else:
-            super(DtoolHTTPRequestHandler, self).do_GET()
+            super().do_GET()
 
 
 class DtoolHTTPServer(HTTPServer):

@@ -22,7 +22,7 @@ class HTTPError(RuntimeError):
     pass
 
 
-class HTTPStorageBroker(object):
+class HTTPStorageBroker:
     """
     Storage broker to interact with datasets over HTTP in a read only fashion.
     """
