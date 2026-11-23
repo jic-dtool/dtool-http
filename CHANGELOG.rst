@@ -22,6 +22,7 @@ Deprecated
 Removed
 ^^^^^^^
 
+- Support for Python < 3.10
 
 Fixed
 ^^^^^
