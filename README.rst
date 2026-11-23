@@ -35,7 +35,7 @@ To install the dtool-http package.
 .. code-block:: bash
 
     cd dtool-http
-    python setup.py install
+    pip install .
 
 
 Usage
