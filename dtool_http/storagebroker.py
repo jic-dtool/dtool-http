@@ -71,7 +71,7 @@ class HTTPStorageBroker(object):
         logger.info("Response status code: {}".format(r.status_code))
 
         if r.status_code != 200:
-            raise(HTTPError(r.status_code))
+            raise HTTPError(r.status_code)
 
         return r
 
