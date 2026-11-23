@@ -14,3 +14,5 @@ uris.txt
 .tox
 
 dist
+build
+dtool_http/version.py

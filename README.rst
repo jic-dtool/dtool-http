@@ -76,7 +76,7 @@ Serving a directory of datasets over HTTP
 -----------------------------------------
 
 There is a simple utility for serving datasets in a directory over HTTP called
-``dtool_serve_direcotry``. This is mainly useful for testing purposes.
+``dtool_serve_directory``. This is mainly useful for testing purposes.
 
 Usage::
 

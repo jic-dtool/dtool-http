@@ -2,15 +2,13 @@
 
 import logging
 
-try:
-    from importlib.metadata import version, PackageNotFoundError
-except ModuleNotFoundError:
-    from importlib_metadata import version, PackageNotFoundError
+from importlib.metadata import version, PackageNotFoundError
 
 try:
     __version__ = version(__name__)
 except PackageNotFoundError:
-    # package is not installed
-    pass
+    # Package is not installed; dtool-cli's ``dtool --version`` still
+    # expects the attribute to exist.
+    __version__ = "unknown"
 
 logger = logging.getLogger(__name__)

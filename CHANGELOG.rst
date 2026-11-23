@@ -26,6 +26,13 @@ Removed
 Fixed
 ^^^^^
 
+- ``dtool_serve_directory`` and ``dtool_publish_dataset`` are installed as
+  console scripts again; 0.5.2 wrongly registered these argparse functions as
+  ``dtool.cli`` plugins, which broke ``dtool --help`` listings and removed the
+  standalone commands
+- License metadata now points to ``LICENSE.rst`` (SPDX ``MIT``)
+- ``dtool_http.__version__`` is always defined, even when not installed
+
 
 Security
 ^^^^^^^^
@@ -42,7 +49,7 @@ Added
 Changed
 ^^^^^^^
 
-- Transitoned from ``setup.py`` to ``pyporject.toml``
+- Transitioned from ``setup.py`` to ``pyproject.toml``
 
 Fixed
 ^^^^^
