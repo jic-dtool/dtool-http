@@ -24,9 +24,9 @@ test = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/jic-dtool/dtool-http/blob/master/README.rst"
+Documentation = "https://github.com/jic-dtool/dtool-http/blob/main/README.rst"
 Repository = "https://github.com/jic-dtool/dtool-http"
-Changelog = "https://github.com/jic-dtool/dtool-http/blob/master/CHANGELOG.rst"
+Changelog = "https://github.com/jic-dtool/dtool-http/blob/main/CHANGELOG.rst"
 
 [tool.setuptools_scm]
 version_scheme = "guess-next-dev"
