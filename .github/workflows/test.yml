@@ -36,7 +36,28 @@ jobs:
 
     - name: Test with pytest
       run: |
-        pytest -sv
+        pytest -sv --cov-report=xml --cov-report=term-missing
+
+    - name: Coverage summary
+      run: |
+        {
+          echo "### Coverage (Python ${{ matrix.python-version }})"
+          python -m coverage report --format=markdown
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v7
+      with:
+        name: coverage-py${{ matrix.python-version }}
+        path: coverage.xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v7
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml
+        flags: py${{ matrix.python-version }}
+        fail_ci_if_error: false
 
     - name: Lint with flake8
       run: |
