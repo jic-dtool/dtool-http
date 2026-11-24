@@ -14,6 +14,12 @@ Added
 Changed
 ^^^^^^^
 
+- Build system switched to hatchling with hatch-vcs; the version is now
+  derived from git tags
+- The publish workflow now runs only for version tags: it runs the test
+  suite, checks that the built version matches the tag and publishes to
+  PyPI. Development builds are no longer uploaded to TestPyPI
+
 
 Deprecated
 ^^^^^^^^^^
@@ -23,6 +29,7 @@ Removed
 ^^^^^^^
 
 - Support for Python < 3.10
+
 
 Fixed
 ^^^^^
@@ -37,6 +44,7 @@ Fixed
 
 Security
 ^^^^^^^^
+
 
 [0.5.2] - 2025-03-31
 --------------------

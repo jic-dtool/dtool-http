@@ -6,10 +6,7 @@ import pkg_resources
 
 import click
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
 
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap

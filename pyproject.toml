@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools_scm[toml]>=6.3"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.27", "hatch-vcs"]
+build-backend = "hatchling.build"
 
 [project]
 name = "dtool-http"
@@ -30,14 +30,6 @@ Documentation = "https://github.com/jic-dtool/dtool-http/blob/main/README.rst"
 Repository = "https://github.com/jic-dtool/dtool-http"
 Changelog = "https://github.com/jic-dtool/dtool-http/blob/main/CHANGELOG.rst"
 
-[tool.setuptools_scm]
-version_scheme = "guess-next-dev"
-local_scheme = "no-local-version"
-write_to = "dtool_http/version.py"
-
-[tool.setuptools]
-packages = ["dtool_http"]
-
 [project.entry-points."dtool.storage_brokers"]
 "HTTPStorageBroker" = "dtool_http.storagebroker:HTTPStorageBroker"
 "HTTPSStorageBroker" = "dtool_http.storagebroker:HTTPSStorageBroker"
@@ -45,3 +37,12 @@ packages = ["dtool_http"]
 [project.scripts]
 "dtool_serve_directory" = "dtool_http.server:cli"
 "dtool_publish_dataset" = "dtool_http.publish:cli"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
+[tool.hatch.build.targets.wheel]
+packages = ["dtool_http"]
