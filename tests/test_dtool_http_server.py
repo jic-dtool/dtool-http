@@ -41,3 +41,15 @@ def test_workflow(tmp_dtool_server):  # NOQA
 
             fpath = dataset.item_content_abspath(example_identifier)
             assert os.path.isfile(fpath)
+
+
+def test_broker_without_optional_manifest_entries(tmp_dtool_server):  # NOQA
+    """Manifests without overlays, annotations or tags are valid."""
+    broker = DataSet.from_uri(tmp_dtool_server)._storage_broker
+    for key in ("overlays", "annotations", "tags"):
+        del broker.http_manifest[key]
+
+    assert broker.list_overlay_names() == []
+    assert broker.list_annotation_names() == []
+    assert broker.list_tags() == []
+    assert broker.list_dataset_uris(tmp_dtool_server, None) == []
